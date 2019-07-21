@@ -39,6 +39,34 @@ router.post('/addUser', (req, res) => {
     })
 });
 
+router.post('/addimg', (req, res) => {
+    var sql = $sql.user.addimg;
+    var params = req.body;
+    console.log(params);
+    conn.query(sql, [params.username], function(err, result) {
+        if (err) {
+            console.log(err);
+            jsonWrite(res,result)
+        }
+        if (result) {
+            result = {
+                code: 200,
+                msg:'增加成功'
+            };    
+            jsonWrite(res, result);
+        }
+    })
+});
+
+router.post('/getimg', (req, res) => {
+    var sql = $sql.user.takimg;
+    var params = req.body;
+    console.log(params);
+    conn.query(sql, function(err, result) {
+        res.send(result)
+    })
+});
+
 router.post('/deleteUser', (req, res) => {
     var sql = $sql.user.deleteS;
     var params = req.body;
@@ -50,6 +78,15 @@ router.post('/deleteUser', (req, res) => {
         if (result) {
             jsonWrite(res, result);
         }
+    })
+});
+
+router.post('/searchUser', (req, res) => {
+    var sql = $sql.user.search;
+    var params = req.body;
+    console.log(sql);
+    conn.query(sql, [params.username], function(err, result) {
+        res.send(result)
     })
 });
 

@@ -4,7 +4,7 @@
     <form>
       <input type="text" name="username" v-model="userName"> <br>
       <input type="text" name="age" v-model="age"> <br>
-      <a href="javascript:;" @click="addUser" @update:count="changeCount">提交</a>
+      <a href="javascript:;" @click="searchUser" @update:count="changeCount">提交</a>
     </form>
     <pre>{{count}}</pre>
   </div>
@@ -44,6 +44,16 @@ export default {
         age: age
       }, {}).then((response) => {
         console.log(response)
+      })
+    },
+    searchUser () {
+      var name = this.userName
+      var age = this.age
+      this.$http.post('/api/user/searchUser', {
+        username: name,
+        age: age
+      }, {}).then((response) => {
+        console.log(response.bodyText)
       })
     }
   }
