@@ -4,7 +4,7 @@ var router = express.Router();
 var mysql = require('mysql');
 var $sql = require('../sqlMap');
  
-// 连接数据库
+// Connect database
 var conn = mysql.createConnection(models.mysql);
  
 conn.connect();
@@ -12,13 +12,58 @@ var jsonWrite = function(res, ret) {
     if(typeof ret === 'undefined') {
         res.json({
             code: '1',
-            msg: '操作失败'
+            msg: 'Error'
         });
     } else {
         res.json(ret);
     }
 };
- 
+
+router.post('/getTool', (req, res) => {
+    var sql = $sql.user.getTool;
+    var params = req.body;
+    console.log(sql)
+    conn.query(sql, [params.id],function(err, result) {
+        res.send(result)
+    })
+});
+
+router.post('/getRatingBrief', (req, res) => {
+    var sql = $sql.user.getRating;
+    var params = req.body;
+    conn.query(sql, [params.id],function(err, result) {
+        res.send(result)
+    })
+});
+
+router.post('/getRating', (req, res) => {
+    var sql = $sql.user.getRating;
+    var params = req.body;
+    console.log(sql)
+    conn.query(sql, [params.id],function(err, result) {
+        res.send(result)
+    })
+});
+
+router.post('/getAdvancedInfo', (req, res) => {
+    var sql = $sql.user.getAdvancedInfo;
+    var params = req.body;
+    console.log(sql)
+    conn.query(sql, [params.id],function(err, result) {
+        res.send(result)
+    })
+});
+
+router.get('/getAllTag', (req, res) => {
+    var sql = $sql.user.getAllTag;
+    console.log(sql)
+    conn.query(sql, function(err, result) {
+        res.send(result)
+    })
+});
+
+
+
 // 增加用户接口
 router.post('/addUser', (req, res) => {
     var sql = $sql.user.add;

@@ -1,7 +1,8 @@
 <template>
   <div>
-    <div id="ex"/>
-    {{count}}
+    <div/>
+    <child :tmp='tmp'/>
+    {{tmp}}
     {{ msg }}
     <tinymce-editor ref="editor"
       v-model="msg"
@@ -17,9 +18,11 @@
 
 <script>
 import TinymceEditor from './tinymce-editor'
+import child from './child'
 export default {
   components: {
-    TinymceEditor
+    TinymceEditor,
+    child
   },
   data () {
     return {
@@ -30,13 +33,13 @@ export default {
     }
   },
   created: function () {
-      this.$http.post('/api/user/getimg', {
-        username: name
-      }, {}).then((response) => {
-        console.log(response.bodyText)
-        this.tmp = JSON.parse(response.bodyText)[0].img
-        document.getElementById('ex').innerHTML = this.tmp
-      })
+    this.$http.post('/api/user/getimg', {
+      username: name
+    }, {}).then((response) => {
+      console.log(response.bodyText)
+      this.tmp = JSON.parse(response.bodyText)[0].img
+    // document.getElementById('ex').innerHTML = this.tmp
+    })
   },
   methods: {
     changeCount (data) {
@@ -67,7 +70,7 @@ export default {
       }, {}).then((response) => {
         console.log(response.bodyText)
         this.tmp = JSON.parse(response.bodyText)[0].img
-        document.getElementById('ex').innerHTML = this.tmp
+        // document.getElementById('ex').innerHTML = this.tmp
       })
     }
   }

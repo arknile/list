@@ -1,0 +1,31 @@
+@import 'variables.css';
+
+.stars-bg-o{
+    position: relative;
+    display: inline-block;
+    height: 40px;
+    width: 200px;
+    background: url(5star-s.jpg) 0 0;
+}
+.star-active-o{
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    height: 100%;
+    background: url(5star-s.jpg) 0 -40px;
+}
+
+.main {
+	 max-width: var(--max-content-width);
+	 margin: 0 auto;
+}
+
+.cell {
+	padding: 20px;
+}
+
+#txtHint {
+	max-width: var(--max-content-width);
+	 margin: 0 auto;
+}
