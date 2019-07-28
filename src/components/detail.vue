@@ -70,7 +70,7 @@ export default {
       if (response.bodyText === '[]') {
         console.log('fail to retrieve data')
         alert('You entered an invalid URL')
-        this.$router.go('/')
+        this.$router.push('/')
       } else {
         var basicInfo = JSON.parse(response.bodyText)
         this.name = basicInfo[0].name

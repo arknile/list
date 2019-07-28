@@ -34,7 +34,7 @@ export default new Router({
       component: login
     },
     {
-      path: '/:id',
+      path: '/addTool',
       name: 'Blank',
       component: toolTemplate
     },
