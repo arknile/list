@@ -29,7 +29,7 @@ router.post('/getTool', (req, res) => {
 });
 
 router.post('/getRatingBrief', (req, res) => {
-    var sql = $sql.user.getRating
+    var sql = $sql.user.getRatingBrief
     var params = req.body
     conn.query(sql, [params.id],function(err, result) {
         res.send(result)
@@ -100,6 +100,36 @@ router.post('/checkPassword', (req,res) => {
     })
 });
 
+router.post('/getToolBrief', (req,res) => {
+    var sql= $sql.user.getToolBrief
+    var params = req.body
+    for (var i in params.data) {
+        console.log(JSON.stringify(params.data[i]) + ',')
+        if (JSON.stringify(params.data[i]) !== '[]') {
+            console.log('executed')
+            sql = sql + ' AND id IN (SELECT tool_id FROM tnt WHERE tag_id IN ('
+            for (var j in params.data[i]) {
+                sql = sql + params.data[i][j] + ', '
+            }
+            sql = sql.substring(0, sql.length - 2)
+            sql = sql + '))'
+        } 
+    }
+    if (params.searchField !== null) {
+        sql = sql + params.searchField
+    }
+    console.log(sql)
+    conn.query(sql, function(err, result) {
+        if (err) {
+            console.log(err)
+            jsonWrite(res,result)
+        }
+        if (result) {
+            res.send(result)
+        }
+    })
+});
+
 // 增加用户接口
 router.post('/addUser', (req, res) => {
     var sql = $sql.user.add
@@ -150,6 +180,21 @@ router.post('/addTool', (req, res) => {
         }
         if (result) {
             res.send(result[1])
+        }
+    })
+});
+
+router.post('/checkDuplicate', (req, res) => {
+    var sql = $sql.user.checkDuplicate
+    var params = req.body
+    console.log(params)
+    conn.query(sql, [params.name], function(err, result) {
+        if (err) {
+            console.log(err)
+            jsonWrite(res,result)
+        }
+        if (result) {
+            res.send(result)
         }
     })
 });

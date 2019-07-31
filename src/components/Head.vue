@@ -2,35 +2,31 @@
 <div>
   <div class='root'>
     <div class='container'>
-            <div class='Naviroot' role='navigation'>
-                <a href='Tutorial.html'><div class='link'>Tutorial</div></a>
-                <a href='About.html'><div class='link'>About</div></a>
-                <a href='Contact.html'><div class='link'>Contact</div></a>
-        </div>
-        <router-link class='brand' to="/">
-            <img src='./logo-small.png' srcset='./logo-small@2x.png 2x' width='38' height='38'/>
-            <span class='brandTxt'>Vis Browser</span>
-            <span class='brandSubText'>
-              An Annotated Collection of Tools for Data Visualization
-            </span>
-        </router-link>
+      <div class='Naviroot' role='navigation'>
+        <!--a href='Tutorial.html'><div class='link'>Tutorial</div></a>
+        <a href='About.html'><div class='link'>About</div></a>
+        <a href='Contact.html'><div class='link'>Contact</div></a-->
+        <router-link to="/login" class="link" v-show="$cookies.get('username') === null" v-if="!$cookies.get('username')"><img src="./Image/login.png" width=20px height=20px/>User Login</router-link>|
+        <router-link to="/login" class="link" v-show="$cookies.get('username') === null" v-if="!$cookies.get('username')"><img src="./Image/login.png" width=20px height=20px/>Admin Login</router-link>
+        <div class="link" v-show="!($cookies.get('username') === null)" v-if="$cookies.get('username')">Hello, {{this.$cookies.get('username')}}</div>
+      </div>
+      <router-link class='brand' to="/">
+        <img src='./logo-small.png' srcset='./logo-small@2x.png 2x' width='38' height='38'/>
+        <span class='brandTxt'>Vis Browser</span>
+        <span class='brandSubText'>
+          An Annotated Collection of Tools for Data Visualization
+        </span>
+      </router-link>
     </div>
   </div>
-  <router-view v-show="show" v-if="show"/>
 </div>
 </template>
 
 <script>
 export default {
   name: 'navigator',
-  props: ['show'],
   data () {
     return {
-    }
-  },
-  created: function () {
-    if (this.show == null) {
-      this.show = true
     }
   },
   methods: {
@@ -57,30 +53,26 @@ body {
     background-repeat: no-repeat;
 }
 
-.Naviroot {
+.root .Naviroot {
   float: right;
   margin: 6px 0 0;
 }
 
-.link {
+.root .link {
   display: inline-block;
   padding: 3px 8px;
   text-decoration: none;
   font-size: 1.125em; /* ~18px */
 }
 
-.link,
-.link:active,
-.link:visited {
+.root .link,
+.root .link:active,
+.root .link:visited {
   color: rgba(255, 255, 255, 0.6);
 }
 
-.link:hover {
+.root .link:hover {
   color: rgba(255, 255, 255, 1);
-}
-
-.hr {
-    display: inline-block;
 }
 
 .root {
@@ -88,34 +80,24 @@ body {
   color: #fff;
 }
 
-.container {
+.root .container {
   margin: 0 auto;
   padding: 20px 0;
   max-width: var(--max-content-width);
 }
 
-.login {
-    display: inline-block;
-    color: color(var(--brand-color) lightness(+10%));
-    text-decoration: none;
-    float: right;
-    position:fixed;
-    right:20px;
-    top:20px;
-}
-
-.brand {
+.root .brand {
   color: color(var(--brand-color) lightness(+10%));
   text-decoration: none;
   font-size: 1.75em; /* ~28px */
 }
 
-.brandTxt {
+.root .brandTxt {
   margin-left: 10px;
   font-family: 'Sansita One', fantasy;
 }
 
-.brandSubText {
+.root .brandSubText {
   margin-left: 10px;
   font-family: 'Sansita One', fantasy;
   font-size: 0.5em;

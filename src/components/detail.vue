@@ -1,45 +1,40 @@
 <template>
-  <div>
-      <div class='part1' id='navi2'>
-        <div class='hr'>
-          <img class='black' :src='image1' height=50px width=50px/><br/>
-          <img class='black' :src='image2' height=50px width=50px/><br/>
-          <img class='black' :src='image3' height=50px width=50px/><br/>
-          <img class='black' :src='image4' height=50px width=50px/>
-        </div>
-        <div class='hr'>
-          <img :src='image1' height=250px width=250px>
-        </div>
-        <div class='hr'>
-          <table>
-            <tr>
-              <td><b>Name</b></td><td>{{name}}</td>
-            </tr>
-            <tr>
-              <td><b>Author</b></td><td>{{author}}</td>
-            </tr>
-            <tr>
-              <td><b>Link</b></td><td><a :href='link'>{{link}}</a></td>
-            </tr>
-            <!--tr><td><b>Description</b></td><td>" . $row['description'] . "</td></tr-->
-          </table>
-
-          <div v-show="bool2">
-              <span class="stars-bg-o">
-                <i class="star-active-o" :style="'width:'+rate0+'%'"></i>
-              </span><br/>
-              <p>{{number}} users rated the tool</p>
-          </div>
-        </div><br/>
+  <div class="all">
+    <div class="part1">
+      <div class="A">
+        <img :src='image1' height=250px width=250px id="toolImg">
       </div>
-      <div><br/>
-          <table border=1px>
-            <tr v-for="(catagory,index1) in catagories" v-bind:key="index1">
-              <td><b>{{catagory}}</b></td>
-              <td><p v-for="(item,index2) in tags[catagory]" v-bind:key="index2"><router-link :to="'/tag/'+item" >{{item}}</router-link>   </p></td>
-            </tr>
-          </table>
-       </div>
+        <div class="B">
+        <table>
+          <tr>
+            <td><b>Name</b></td><td>{{name}}</td>
+          </tr>
+          <tr>
+            <td><b>Author</b></td><td>{{author}}</td>
+          </tr>
+          <tr>
+            <td><b>Link</b></td><td><a :href='link'>{{link}}</a></td>
+          </tr>
+          <!--tr><td><b>Description</b></td><td>" . $row['description'] . "</td></tr-->
+        </table>
+        <br/>
+        <br/>
+        <div v-if="number">
+            <span class="stars-bg-o">
+              <i class="star-active-o" :style="'width:'+rate0+'%'"></i>
+            </span><br/>
+            <p>{{number}} users rated the tool</p>
+        </div>
+      </div>
+    </div>
+    <div class="part2">
+      <table border=1px id="table">
+        <tr v-for="(catagory,index1) in catagories" :key="index1" v-show="check(tags[catagory])">
+          <td class="leftcell"><b>{{catagory}}</b></td>
+          <td class="rightcell"><p v-for="(item,index2) in tags[catagory]" v-bind:key="index2"><router-link :to="'/tag/'+item" >{{item}}</router-link>    </p></td>
+        </tr>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -52,9 +47,6 @@ export default {
       author: null,
       link: null,
       image1: null,
-      image2: null,
-      image3: null,
-      image4: null,
       bool2: false,
       rate0: null,
       tags: {'Data': [], 'Licence': [], 'Programming': [], 'Type': [], 'Platform': [], 'Visualizations': [], 'Interactivities': []},
@@ -63,6 +55,7 @@ export default {
     }
   },
   created: function () {
+    this.$emit('type', 'Overview')
     var id = this.$route.params.id
     this.$http.post('/api/user/getTool', {
       id: id
@@ -77,9 +70,6 @@ export default {
         this.author = basicInfo[0].author
         this.link = basicInfo[0].link
         this.image1 = basicInfo[0].image1
-        this.image2 = basicInfo[0].image2
-        this.image3 = basicInfo[0].image3
-        this.image4 = basicInfo[0].image4
 
         this.$http.post('/api/user/getAdvancedInfo', {
           id: id
@@ -90,7 +80,6 @@ export default {
             var collection = JSON.parse(response.bodyText)
             for (var i in collection) {
               for (var j in this.catagories) {
-                console.log('1')
                 if (String(collection[i].tag_type) === this.catagories[j]) {
                   this.tags[this.catagories[j]].push(collection[i].tag_name)
                 }
@@ -102,7 +91,6 @@ export default {
         this.$http.post('/api/user/getRatingBrief', {
           id: id
         }, {}).then((response) => {
-          console.log(response.bodyText)
           if (response.bodyText === '[]') {
           } else {
             var result = JSON.parse(response.bodyText)
@@ -114,11 +102,73 @@ export default {
         })
       }
     })
+  },
+  methods: {
+    check (catagory) {
+      if (JSON.stringify(catagory) === '[]') {
+        return false
+      }
+      return true
+    }
   }
 }
 </script>
 
-<style>
+<style scope>
 @import 'rating.css';
-@import 'tools.css';
+@import 'variables.css';
+@import url('https://fonts.googleapis.com/css?family=Sansita+One');
+
+#toolImg {
+  top:5vw;
+  position: relative;
+}
+.all {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.A {
+  width: 250px;
+  height: 250px;
+}
+.B {
+  left: 10vw;
+  top:5vw;
+  position: relative;
+  width: 400px;
+  height: 500px;
+  margin-right:0px;
+  text-align: left
+}
+.part1 {
+  width: 800px;
+  height: 400px;
+  display:flex;
+  margin: 0 auto
+}
+.part2 {
+  width:800px;
+  display: flex;
+  text-align: left;
+  margin: 0 auto;
+  padding-bottom: 2vw;
+}
+
+#table {
+  width: 100%;
+}
+#table .leftcell {
+  width: 100px;
+}
+#table .rightcell {
+  display: flex;
+  flex-wrap: wrap;
+}
+#table td {
+  padding: 5px 25px;
+}
+#table td p{
+  padding: 0 25px 0 0;
+}
 </style>

@@ -1,7 +1,6 @@
 <template>
 <div>
-  <button @click="loadMyFeedback()">+ Write my feedback</button>
-  <feedbackTemplate v-show="showMyFeedback" v-if="showMyFeedback" :feedbackData="feedbackData"/>
+  <router-link :to="'/tool/'+$route.params.id+'/writeFeedback'"><button @click="loadMyFeedback()">+ Write my feedback</button></router-link>
   <div v-for="(item, index) in ratings" v-bind:key="index">
       {{item.user_id}}
       <span class="stars-bg-o">
@@ -10,13 +9,12 @@
       {{item.text}}
   </div>
   <div v-show="empty" v-if="empty">
-    No rating history found.
+    No rating records found.
   </div>
 </div>
 </template>
 
 <script>
-import feedbackTemplate from './feedbackTemplate'
 export default {
   name: 'toolRatings',
   data () {
@@ -28,10 +26,8 @@ export default {
       feedbackData: null
     }
   },
-  components: {
-    feedbackTemplate
-  },
   created: function () {
+    this.$emit('type', 'Ratings')
     var id = this.$route.params.id
     this.$http.post('/api/user/getRating', {
       id: id

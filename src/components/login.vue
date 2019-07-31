@@ -42,12 +42,12 @@ export default {
             this.alert1 = 'Username and password do not match'
           } else {
             var id = JSON.parse(response.bodyText)[0].id
-            this.$cookies.set('uid', id, 60)
-            alert(this.$cookies.get('uid'))
+            var username = JSON.parse(response.bodyText)[0].username
+            this.$cookies.set('uid', id, 3600)
+            this.$cookies.set('username', username, 3600)
+            alert('Login success')
             this.$router.go(-1)
           }
-          console.log(response)
-          console.log('Registry complete')
         })
       }
     }

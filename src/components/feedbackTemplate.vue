@@ -1,5 +1,5 @@
 <template>
-  <form name="form1" method="post" action="">
+  <form class="form1" method="post" action="">
     <table>
       <tr><td>Tool</td><td>{{name}}</td></tr>
       <tr><td colspan="2">Please rate your experience</td></tr>
@@ -19,3 +19,9 @@ export default {
   name: 'feedbackTemplate'
 }
 </script>
+
+<style>
+.form1 {
+  border: 5px solid red
+}
+</style>

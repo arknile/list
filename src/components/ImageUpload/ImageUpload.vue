@@ -1,20 +1,9 @@
 <template>
   <div class="upload">
-    <!-- 图片展示 -->
-    <div class="cha" v-show="(imgUrl)">
-      <!-- 删除icon -->
-      <div class="del"><i class="el-icon-delete" @click="delImg">delete</i></div>
-      <!-- 放大icon -->
-      <div class="layer"><i @click="isEnlargeImage = true" class="el-icon-view"></i></div>
-    </div>
     <!-- 图片上传控件 -->
     <div class="load" v-show="(!imgUrl)">
       <input type="file" name="" id="form" @change="uploadIMG">
     </div>
-    <!-- 图片预览弹框 -->
-
-            <img @click="isEnlargeImage = false" style="width:100%;" :src="imgUrl">
-
   </div>
 </template>
 
@@ -22,11 +11,13 @@
 export default {
   name: 'ImageUpload',
   props: {
-    uploadUrl: String
+    uploadUrl: Boolean
   },
   watch: {
     uploadUrl: function () {
-      this.imgUrl = null
+      if (this.uploadUrl === false) {
+        this.imgUrl = null
+      }
     }
   },
   data () {
@@ -47,7 +38,7 @@ export default {
       this.picavalue = files[0]
       if (this.picavalue.size / 1024 > 5000) {
         this.$message({
-          message: 'The image is too large for the system, please upload it somewhere else and paste the URL',
+          message: 'The image is too large for the system, please upload it somewhere else and copy the URL',
           type: 'warning'
         })
       } else {
@@ -70,28 +61,16 @@ export default {
           let result = this.result
           let img = new Image()
           img.src = result
-          // console.log('********未压缩前的图片大小********')
-          // console.log(result.length)
           img.onload = function () {
             // let data = self.compress(img)
             self.imgUrl = result
-            console.log(self.imgUrl)
             self.test = result
             self.images.push(self.imgUrl)
             self.count++
             self.$emit('chileEvent', self.imgUrl)
           }
         }
-        console.log(this.imgUrl)
       }
-    },
-    // 删除事件
-    emitEvent () {
-      this.imgUrl = null
-    },
-    delImg () {
-      this.imgUrl = null
-      this.$emit('chileEvent', '')
     }
   }
 }
@@ -100,8 +79,8 @@ export default {
 <style>
 .upload {
   position: relative;
-  width: 400px;
-  height: 420px;
+  width: 50px;
+  height: 20px;
 }
 
 .upload .cha {
@@ -154,30 +133,9 @@ export default {
 .upload .load {
     position: absolute;
     top: 0;
-    left: 50%;
+    left: 0;
     width: 200px;
-    height: 400px;
-    border: 1px dashed #cccccc;
+    height: 200px;
 }
 
-.upload .load::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateY(-50%);
-    width: 1px;
-    height: 80%;
-    border-right: 1px solid #cccccc;
-  }
-.upload .load:after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
-    height: 1px;
-    border-top: 1px solid #cccccc;
-  }
 </style>
