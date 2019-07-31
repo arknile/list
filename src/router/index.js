@@ -1,12 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import overview from '@/components/detail'
-import toolNavigator from '@/components/toolNavigator'
-import toolRatings from '@/components/toolRatings'
-import toolTemplate from '@/components/toolTemplate'
-import login from '@/components/login'
 import home from '@/components/home'
+import login from '@/components/login'
+import toolTemplate from '@/components/toolTemplate'
+import toolNavigator from '@/components/toolNavigator'
+import overview from '@/components/detail'
+import toolRatings from '@/components/toolRatings'
 import feedbackTemplate from '@/components/feedbackTemplate'
+import toolReview from '@/components/toolReview'
+import reviewTemplate from '@/components/reviewTemplate'
 
 Vue.use(Router)
 
@@ -29,7 +31,6 @@ export default new Router({
     },
     {
       path: '/tool/:id',
-      name: 'toolInfo',
       component: toolNavigator,
       children: [
         {
@@ -43,6 +44,14 @@ export default new Router({
         {
           path: 'writeFeedback',
           component: feedbackTemplate
+        },
+        {
+          path: 'reviews',
+          component: toolReview
+        },
+        {
+          path: 'writeReview',
+          component: reviewTemplate
         }
       ]
     }

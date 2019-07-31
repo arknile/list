@@ -6,9 +6,13 @@
         <!--a href='Tutorial.html'><div class='link'>Tutorial</div></a>
         <a href='About.html'><div class='link'>About</div></a>
         <a href='Contact.html'><div class='link'>Contact</div></a-->
-        <router-link to="/login" class="link" v-show="$cookies.get('username') === null" v-if="!$cookies.get('username')"><img src="./Image/login.png" width=20px height=20px/>User Login</router-link>|
-        <router-link to="/login" class="link" v-show="$cookies.get('username') === null" v-if="!$cookies.get('username')"><img src="./Image/login.png" width=20px height=20px/>Admin Login</router-link>
-        <div class="link" v-show="!($cookies.get('username') === null)" v-if="$cookies.get('username')">Hello, {{this.$cookies.get('username')}}</div>
+        <div v-show="$cookies.get('username') === null">
+          <router-link to="/login" class="link"><img src="./Image/login.png" width=20px height=20px/>User Login</router-link><span> /</span>
+          <router-link to="/login" class="link"><img src="./Image/login.png" width=20px height=20px/>Admin Login</router-link>
+        </div>
+        <div v-show="$cookies.get('username') !== null">
+          <span class="link1" v-show="!($cookies.get('username') === null)" v-if="$cookies.get('username')">Hello, {{this.$cookies.get('username')}} /</span><span class="link" @click="logout()">Logout</span>
+        </div>
       </div>
       <router-link class='brand' to="/">
         <img src='./logo-small.png' srcset='./logo-small@2x.png 2x' width='38' height='38'/>
@@ -27,9 +31,19 @@ export default {
   name: 'navigator',
   data () {
     return {
+      username: null
     }
   },
   methods: {
+    logout () {
+      this.$cookies.remove('username')
+      this.$forceUpdate()
+    }
+  },
+  watch: {
+    username: function () {
+      this.$forceUpdate()
+    }
   }
 }
 </script>
@@ -54,8 +68,9 @@ body {
 }
 
 .root .Naviroot {
-  float: right;
   margin: 6px 0 0;
+  float: right;
+  width: 300px;
 }
 
 .root .link {
@@ -63,6 +78,14 @@ body {
   padding: 3px 8px;
   text-decoration: none;
   font-size: 1.125em; /* ~18px */
+}
+
+.root .link1 {
+  display: inline-block;
+  padding: 3px 8px;
+  text-decoration: none;
+  font-size: 1.125em; /* ~18px */
+  color: rgba(255, 255, 255, 1);
 }
 
 .root .link,
@@ -73,6 +96,7 @@ body {
 
 .root .link:hover {
   color: rgba(255, 255, 255, 1);
+  cursor: pointer;
 }
 
 .root {

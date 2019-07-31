@@ -51,6 +51,9 @@ export default {
         })
       }
     }
+  },
+  beforeRouteLeave (to, from, next) {
+    window.location.reload()
   }
 }
 </script>

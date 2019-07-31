@@ -45,6 +45,15 @@ router.post('/getRating', (req, res) => {
     })
 });
 
+router.post('/getReview', (req, res) => {
+    var sql = $sql.user.getReview
+    var params = req.body
+    console.log(sql)
+    conn.query(sql, [params.id],function(err, result) {
+        res.send(result)
+    })
+});
+
 router.post('/getAdvancedInfo', (req, res) => {
     var sql = $sql.user.getAdvancedInfo
     var params = req.body
@@ -59,6 +68,81 @@ router.get('/getAllTag', (req, res) => {
     console.log(sql)
     conn.query(sql, function(err, result) {
         res.send(result)
+    })
+});
+
+router.post('/checkFeedback', (req, res) => {
+    var sql = $sql.user.checkFeedback
+    var params = req.body
+    console.log(sql)
+    conn.query(sql, [params.user_id, params.tool_id], function(err, result) {
+        if (err) {
+            console.log(err)
+            jsonWrite(res,result)
+        }
+        if (result) {
+            res.send(result)
+        }
+    })
+});
+
+router.post('/checkReview', (req, res) => {
+    var sql = $sql.user.checkReview
+    var params = req.body
+    console.log(sql)
+    conn.query(sql, [params.user_id, params.tool_id], function(err, result) {
+        if (err) {
+            console.log(err)
+            jsonWrite(res,result)
+        }
+        if (result) {
+            res.send(result)
+        }
+    })
+});
+
+router.post('/getToolName', (req, res) => {
+    var sql = $sql.user.getToolName
+    var params = req.body
+    console.log(sql)
+    conn.query(sql, [params.id], function(err, result) {
+        if (err) {
+            console.log(err)
+            jsonWrite(res,result)
+        }
+        if (result) {
+            res.send(result[0])
+        }
+    })
+});
+
+router.post('/postFeedback', (req, res) => {
+    var sql = $sql.user.postFeedback
+    var params = req.body
+    console.log(sql)
+    conn.query(sql, [params.rating, params.tool_id, params.user_id, params.text], function(err, result) {
+        if (err) {
+            console.log(err)
+            jsonWrite(res,result)
+        }
+        if (result) {
+            res.send(result)
+        }
+    })
+});
+
+router.post('/postReview', (req, res) => {
+    var sql = $sql.user.postReview
+    var params = req.body
+    console.log(sql)
+    conn.query(sql, [params.learning, params.visual_quality, params.speed, params.scalability, params.customisability, params.usability, params.tool_id, params.user_id, params.text], function(err, result) {
+        if (err) {
+            console.log(err)
+            jsonWrite(res,result)
+        }
+        if (result) {
+            res.send(result)
+        }
     })
 });
 
@@ -130,45 +214,6 @@ router.post('/getToolBrief', (req,res) => {
     })
 });
 
-// 增加用户接口
-router.post('/addUser', (req, res) => {
-    var sql = $sql.user.add
-    var params = req.body
-    console.log(params)
-    conn.query(sql, [params.username, params.age], function(err, result) {
-        if (err) {
-            console.log(err)
-            jsonWrite(res,result)
-        }
-        if (result) {
-            result = {
-                code: 200,
-                msg:'增加成功'
-            }    
-            jsonWrite(res, result)
-        }
-    })
-});
-
-router.post('/addimg', (req, res) => {
-    var sql = $sql.user.addimg
-    var params = req.body
-    console.log(params)
-    conn.query(sql, [params.username], function(err, result) {
-        if (err) {
-            console.log(err)
-            jsonWrite(res,result)
-        }
-        if (result) {
-            result = {
-                code: 200,
-                msg:'增加成功'
-            }    
-            jsonWrite(res, result)
-        }
-    })
-});
-
 router.post('/addTool', (req, res) => {
     var sql = $sql.user.addTool
     var params = req.body
@@ -213,38 +258,6 @@ router.post('/addToolTags', (req, res) => {
         })
     }
     res.json(count)
-});
-
-router.post('/getimg', (req, res) => {
-    var sql = $sql.user.takimg
-    var params = req.body
-    console.log(params)
-    conn.query(sql, function(err, result) {
-        res.send(result)
-    })
-});
-
-router.post('/deleteUser', (req, res) => {
-    var sql = $sql.user.deleteS
-    var params = req.body
-    console.log(sql)
-    conn.query(sql, [params.username], function(err, result) {
-        if (err) {
-            console.log(err)
-        }
-        if (result) {
-            jsonWrite(res, result)
-        }
-    })
-});
-
-router.post('/searchUser', (req, res) => {
-    var sql = $sql.user.search
-    var params = req.body
-    console.log(sql)
-    conn.query(sql, [params.username], function(err, result) {
-        res.send(result)
-    })
 });
 
 module.exports = router

@@ -35,6 +35,9 @@ export default {
       }
     })
   },
+  activated: function () {
+    console.log(this.$cookies.get('username'))
+  },
   methods: {
     retrieveData () {
       this.$http.post('/api/user/getToolBrief', {

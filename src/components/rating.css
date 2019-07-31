@@ -5,7 +5,7 @@
     display: inline-block;
     height: 40px;
     width: 200px;
-    background: url(5star-s.jpg) 0 0;
+    background: url(5star-o.png) 0 0;
 }
 .star-active-o{
     position: absolute;
@@ -13,7 +13,103 @@
     top: 0;
     display: block;
     height: 100%;
-    background: url(5star-s.jpg) 0 -40px;
+    background: url(5star-o.png) 0 -40px;
+}
+
+.stars-bg-c{
+    position: relative;
+    display: inline-block;
+    height: 40px;
+    width: 200px;
+    background: url(5star-c.png) 0 0;
+}
+.star-active-c{
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    height: 100%;
+    background: url(5star-c.png) 0 -40px;
+}
+
+.stars-bg-l{
+    position: relative;
+    display: inline-block;
+    height: 40px;
+    width: 200px;
+    background: url(5star-l.png) 0 0;
+}
+.star-active-l{
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    height: 100%;
+    background: url(5star-l.png) 0 -40px;
+}
+
+.stars-bg-sc{
+    position: relative;
+    display: inline-block;
+    height: 40px;
+    width: 200px;
+    background: url(5star-sc.png) 0 0;
+}
+.star-active-sc{
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    height: 100%;
+    background: url(5star-sc.png) 0 -40px;
+}
+
+.stars-bg-sp{
+    position: relative;
+    display: inline-block;
+    height: 40px;
+    width: 200px;
+    background: url(5star-sp.png) 0 0;
+}
+.star-active-sp{
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    height: 100%;
+    background: url(5star-sp.png) 0 -40px;
+}
+
+.stars-bg-u{
+    position: relative;
+    display: inline-block;
+    height: 40px;
+    width: 200px;
+    background: url(5star-u.png) 0 0;
+}
+.star-active-u{
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    height: 100%;
+    background: url(5star-u.png) 0 -40px;
+}
+
+.stars-bg-v{
+    position: relative;
+    display: inline-block;
+    height: 40px;
+    width: 200px;
+    background: url(5star-v.png) 0 0;
+}
+.star-active-v{
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    height: 100%;
+    background: url(5star-v.png) 0 -40px;
 }
 
 .main {
