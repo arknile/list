@@ -1,10 +1,10 @@
 <template>
-  <router-link :to="url" v-if="url">
-    <div class="card" >
+  <div class="card" >
+    <router-link :to="url" v-if="url">
       <img :src="image" class='toolImg'/>
       <p class="name">{{name}}</p>
-      </div>
-  </router-link>
+    </router-link>
+  </div>
 </template>
 
 <script>
@@ -30,7 +30,7 @@ export default {
 <style>
 .card {
 background-color: white;
-padding: 1vw;
+padding: 20px;
 margin: 10px 10px;
 width: 10vw;
 height: 10vw;

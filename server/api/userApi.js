@@ -149,11 +149,8 @@ router.post('/postReview', (req, res) => {
 router.post('/postUser', (req,res) => {
     var sql= $sql.user.postUser
     var params = req.body
-    console.log(params.password)
-    let sha256 = require('js-sha256').sha256// 这里用的是require方法，所以没用import
-    var password = sha256(String(params.password).substring(0, 32) + String(params.username).toLowerCase())// 要加密的密码
-    console.log(password)// 这就是你加密之后的密码
-    console.log(sql)
+    let sha256 = require('js-sha256').sha256
+    var password = sha256(String(params.password).substring(0, 32) + String(params.username).toLowerCase())
     conn.query(sql, [params.username, password], function(err, result) {
         if (err) {
             console.log(err)
@@ -253,7 +250,6 @@ router.post('/addToolTags', (req, res) => {
         conn.query(sql, [params.id, params.submission[i]], function(err, result) {
             if (err) {
                 count = count + 1
-                break
             }
         })
     }

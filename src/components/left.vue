@@ -1,5 +1,6 @@
 <template>
   <div v-if="refresh" class="left">
+    <div><input type="button" class="btn-search" value="Clear all filters" @click="childLV3Event2()"/></div>
     <table>
     <tr v-for="(tagss, catagory) in tag" v-bind:key="catagory">
       <td align="right"><b>{{catagory}}</b><td>
@@ -14,6 +15,9 @@
 import catagory from './catagory'
 export default {
   name: 'left',
+  /* props: {
+    dataProp: Object
+  }, */
   data () {
     return {
       tag: {'Data': {}, 'Licence': {}, 'Programming': {}, 'Type': {}, 'Platform': {}, 'Visualizations': {}, 'Interactivities': {}},
@@ -39,9 +43,17 @@ export default {
       this.refresh = true
     })
   },
+  /* watch: {
+    dataProp () {
+      this.tag =
+    }
+  } */
   methods: {
     childLV3Event (data) {
       this.$emit('childLV3Event', data)
+    },
+    childLV3Event2 () {
+      this.$emit('childLV3Event2', null)
     }
   }
 }
@@ -75,5 +87,13 @@ text-align:center; color:#3C3C3C;
 height: 2vw;
 width: 1vw;
 position: relative;
+}
+.left .btn-search {
+  position: relative;
+  width: 100px;
+  height: 40px;
+  color: #fff;
+  background-color: #444786;
+  border: 0;
 }
 </style>

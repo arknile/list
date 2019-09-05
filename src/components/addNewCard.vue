@@ -1,9 +1,9 @@
 <template>
-  <router-link to="/addTool">
-    <div class="card" >
+  <div class="card">
+    <router-link to="/addTool">
       <img src="./Image/addNew.png" class='toolImg'/>
-      </div>
-  </router-link>
+    </router-link>
+  </div>
 </template>
 
 <script>
@@ -15,7 +15,7 @@ export default {
 <style>
 .card {
 background-color: white;
-padding: 1vw;
+padding: 20px;
 margin: 10px 10px;
 width: 10vw;
 height: 10vw;

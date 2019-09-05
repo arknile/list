@@ -14,6 +14,7 @@
           <span class="link1" v-show="!($cookies.get('username') === null)" v-if="$cookies.get('username')">Hello, {{this.$cookies.get('username')}} /</span><span class="link" @click="logout()">Logout</span>
         </div>
       </div>
+      <div>
       <router-link class='brand' to="/">
         <img src='./logo-small.png' srcset='./logo-small@2x.png 2x' width='38' height='38'/>
         <span class='brandTxt'>Vis Browser</span>
@@ -21,6 +22,7 @@
           An Annotated Collection of Tools for Data Visualization
         </span>
       </router-link>
+      </div>
     </div>
   </div>
 </div>
@@ -38,6 +40,9 @@ export default {
     logout () {
       this.$cookies.remove('username')
       this.$forceUpdate()
+    },
+    beforeRouteLeave (to, from, next) {
+      window.location.reload()
     }
   },
   watch: {

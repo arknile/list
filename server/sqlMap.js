@@ -7,7 +7,7 @@ var sqlMap = {
         getAdvancedInfo: 'SELECT tag.tag_name, tag.tag_type, tag.tag_id FROM tnt,tag WHERE tnt.tool_id=? AND tag.tag_id=tnt.tag_id',
         getReview: 'SELECT review.learning, review.visual_quality, review.speed, review.scalability, review.customisability, review.usability, review.text, user.username from review, user WHERE review.tool_id=? AND review.user_id=user.id AND review.status="Approved"',
         getRating: 'SELECT feedback.rating, feedback.text, user.username from feedback, user WHERE feedback.tool_id=? AND feedback.user_id=user.id AND feedback.status="Approved"',
-        getAllTag: 'SELECT tag_name, tag_type, tag_id, icon from tag',
+        getAllTag: 'SELECT tag_name, tag_type, tag_id, icon FROM tag ORDER BY tag_name',
         postTool: 'INSERT INTO tool(name, author, link, image1, status) VALUES (?, ?, ?, ?, "Pending")',
         postTnT: 'INSERT INTO tnt(tool_id, tag_id) VALUES (?, ?)',
         postFeedback: 'INSERT INTO feedback(rating, tool_id, user_id, text, status) VALUES (?, ?, ?, ?, "Pending")',
@@ -21,7 +21,7 @@ var sqlMap = {
         checkFeedback: 'SELECT COUNT(*) AS count FROM feedback WHERE user_id=? AND tool_id=?',
         checkReview: 'SELECT COUNT(*) AS count FROM review WHERE user_id=? AND tool_id=?',
         getToolName: 'SELECT name FROM tool WHERE id=?',
-        postFeedback: 'INSERT INTO feedback(rating, tool_id, user_id, text, status) VALUES (?, ?, ?, ?, "Pending")'
+        postFeedback: 'INSERT INTO feedback(rating, tool_id, user_id, text, status) VALUES (?, ?, ?, ?, "Approved")'
     }
 }
  

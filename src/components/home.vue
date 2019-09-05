@@ -1,8 +1,8 @@
 <template>
   <div class="index">
-    <left @childLV3Event="parentEvent"/>
+    <left @childLV3Event="parentEvent" @childLV3Event2="parentEvent3" :dataProp="filter"/>
     <div class="bar"/>
-    <right :toolData="toolData" @rightChildEvent="parentEvent2"/>
+    <right :toolData="toolData"/>
   </div>
 </template>
 
@@ -35,20 +35,13 @@ export default {
       }
     })
   },
-  activated: function () {
-    console.log(this.$cookies.get('username'))
-  },
   methods: {
     retrieveData () {
       this.$http.post('/api/user/getToolBrief', {
         data: this.filter,
         searchField: this.searchField
       }).then((response) => {
-        if (response.bodyText === '[]') {
-          alert('No tool found')
-        } else {
-          this.toolData = JSON.parse(response.bodyText)
-        }
+        this.toolData = JSON.parse(response.bodyText)
       })
     },
     parentEvent (data) {
@@ -63,11 +56,9 @@ export default {
       }
       this.retrieveData()
     },
-    parentEvent2 (data) {
-      if (data[0] === null) {
-        this.searchField = null
-      } else {
-        this.searchField = ' AND ' + data[0] + ' REGEXP "' + data[1] + '"'
+    parentEvent3 (data) {
+      for (var i in this.filter) {
+        this.filter[i] = []
       }
       this.retrieveData()
     }

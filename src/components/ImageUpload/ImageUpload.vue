@@ -45,18 +45,13 @@ export default {
         this.imgPreview(this.picavalue)
       }
     },
-    // 获取图片
     imgPreview (file, callback) {
       let self = this
-      // 判断支不支持FileReader
       if (!file || !window.FileReader) return
       if (/^image/.test(file.type)) {
-        // 创建一个reader
         let reader = new FileReader()
 
-        // 将图片转成base64格式
         reader.readAsDataURL(file)
-        // 读取成功后的回调
         reader.onloadend = function () {
           let result = this.result
           let img = new Image()

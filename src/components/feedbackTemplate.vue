@@ -14,7 +14,7 @@
       </tr>
       <tr>
         <td>Your comment</td>
-        <td><textarea name="feedback" class='' placeholder='Leave your feedback here' maxlength="140" onkeydown="if(this.value.length>=140) {event.returnValue=false}" v-model="comment"></textarea><br>Max. 140 characters</td>
+        <td><textarea name="feedback" class='' placeholder='Leave your feedback here' maxlength="140"  v-model="comment"></textarea><br><span id="a">Max. 140 characters</span><span id="b">{{count}} characters left</span></td>
       </tr>
     </table>
     <div><input type="button" value="Submit" @click="submit()"/></div>
@@ -27,7 +27,16 @@ export default {
   data () {
     return {
       name: null,
-      comment: null
+      comment: '',
+      count: 140
+    }
+  },
+  watch: {
+    comment () {
+      this.count = 140 - this.comment.length
+      if (this.comment.length > 140) {
+        this.comment = this.comment.substring(0, 140)
+      }
     }
   },
   created: function () {
@@ -65,11 +74,24 @@ export default {
 
 <style>
 .form1 {
-  width: 300px;
+  width: 400px;
   text-align: left;
   margin: 0 auto;
 }
 .form1 div {
 text-align: center;
+}
+.form1 #b {
+  float: right;
+}
+.form1 table {
+  width: 100%
+}
+.form1 #a {
+  color: lightgray
+}
+.form1 textarea {
+  width: 270px;
+  height: 70px;
 }
 </style>

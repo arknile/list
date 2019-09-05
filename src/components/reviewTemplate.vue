@@ -3,7 +3,7 @@
     <table>
       <tr><td>Tool</td><td>{{name}}</td></tr>
       <tr><td colspan="2">Please rate these criteria</td></tr>
-      <tr><td>Rating</td>
+      <tr><td>Learnability</td>
         <td><select id="learning">
         <option value=5 selected>5</option>
         <option value=4>4</option>
